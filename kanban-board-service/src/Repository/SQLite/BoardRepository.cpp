@@ -61,7 +61,7 @@ void BoardRepository::initialize() {
     handleSQLError(result, errorMessage);
 
     // only if dummy data is needed ;)
-    //createDummyData();
+    // createDummyData();
 }
 
 Board BoardRepository::getBoard() {
@@ -70,6 +70,7 @@ Board BoardRepository::getBoard() {
 
 std::vector<Column> BoardRepository::getColumns() {
     throw NotImplementedException();
+    sqlite3_open("test", &database);
 }
 
 std::optional<Column> BoardRepository::getColumn(int id) {
@@ -77,6 +78,7 @@ std::optional<Column> BoardRepository::getColumn(int id) {
 }
 
 std::optional<Column> BoardRepository::postColumn(std::string name, int position) {
+
     throw NotImplementedException();
 }
 

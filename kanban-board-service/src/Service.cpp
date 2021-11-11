@@ -15,6 +15,8 @@ int main() {
     Prog3::Core::BoardManager boardManager(jsonParser, sqlRepository);
     Prog3::Api::Endpoint endpoint(crowApplication, boardManager);
 
+    std::cout << jsonParser.testFunktion() << "\n";
+
     crowApplication.port(8080)
         //        .multithreaded()
         .run();

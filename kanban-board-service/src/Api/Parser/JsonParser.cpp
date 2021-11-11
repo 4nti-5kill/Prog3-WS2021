@@ -15,6 +15,13 @@ string JsonParser::convertToApiString(Board &board) {
     throw NotImplementedException();
 }
 
+string JsonParser::testFunktion() {
+    Value v;
+    Document d;
+    v.SetString("Dies ist ein Test");
+    return v.GetString();
+}
+
 string JsonParser::convertToApiString(Column &column) {
     throw NotImplementedException();
 }

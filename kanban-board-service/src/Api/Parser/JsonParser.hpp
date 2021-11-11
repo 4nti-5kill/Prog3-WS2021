@@ -15,6 +15,7 @@ class JsonParser : public ParserIf {
     JsonParser(){};
     virtual ~JsonParser(){};
 
+    std::string testFunktion();
     virtual std::string convertToApiString(Prog3::Core::Model::Board &board);
 
     virtual std::string convertToApiString(Prog3::Core::Model::Column &column);
