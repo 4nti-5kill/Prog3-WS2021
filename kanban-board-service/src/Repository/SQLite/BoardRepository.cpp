@@ -70,7 +70,6 @@ Board BoardRepository::getBoard() {
 
 std::vector<Column> BoardRepository::getColumns() {
     throw NotImplementedException();
-    sqlite3_open("test", &database);
 }
 
 std::optional<Column> BoardRepository::getColumn(int id) {
@@ -100,6 +99,20 @@ std::optional<Item> BoardRepository::getItem(int columnId, int itemId) {
 
 std::optional<Item> BoardRepository::postItem(int columnId, std::string title, int position) {
     throw NotImplementedException();
+    time_t now = time(0);
+    char *datetime = ctime(&now);
+
+    std::string SQLstatement =
+        "INSERT INTO item(title, date, position, columnId)"
+        "VALUES('" +
+        title + "', '" + datetime + "' ," + to_string(position) + ", " + to_string(columnId) + ");";
+
+    int result = sqlite3_exec(database, SQLstatement.c_str(), NULL, 0, nullptr);
+    std::optional<Item> output = nullopt;
+    if (result == SQLITE_OK) {
+        output = Item(sqlite3_last_insert_rowid(database), title, position, datetime);
+    }
+    return output;
 }
 
 std::optional<Prog3::Core::Model::Item> BoardRepository::putItem(int columnId, int itemId, std::string title, int position) {
