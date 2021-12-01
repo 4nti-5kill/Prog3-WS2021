@@ -98,7 +98,7 @@ std::optional<Item> BoardRepository::getItem(int columnId, int itemId) {
 }
 
 std::optional<Item> BoardRepository::postItem(int columnId, std::string title, int position) {
-    throw NotImplementedException();
+
     time_t now = time(0);
     char *datetime = ctime(&now);
 
