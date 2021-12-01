@@ -10,8 +10,6 @@ namespace SQLite {
 class BoardRepository : public RepositoryIf {
   private:
     sqlite3 *database;
-    std::string *DateiNamePnt = dbDateiname;
-    std::string dbDateiName = "DatenBank ";
 
     void initialize();
     void createDummyData();
