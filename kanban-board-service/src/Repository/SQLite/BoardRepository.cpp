@@ -78,7 +78,23 @@ std::optional<Column> BoardRepository::getColumn(int id) {
 
 std::optional<Column> BoardRepository::postColumn(std::string name, int position) {
 
-    throw NotImplementedException();
+    string sqlPostItem =
+        "INSERT INTO column('name', 'position') "
+        "VALUES('" +
+        name + "', '" + to_string(position) + "')";
+
+    int result = 0;
+    char *errorMessage = nullptr;
+
+    result = sqlite3_exec(database, sqlPostItem.c_str(), NULL, 0, &errorMessage);
+    handleSQLError(result, errorMessage);
+
+    if (SQLITE_OK == result) {
+        int columnId = sqlite3_last_insert_rowid(database);
+        return Column(columnId, name, position);
+    }
+
+    return std::nullopt;
 }
 
 std::optional<Prog3::Core::Model::Column> BoardRepository::putColumn(int id, std::string name, int position) {
