@@ -102,7 +102,24 @@ std::optional<Prog3::Core::Model::Column> BoardRepository::putColumn(int id, std
 }
 
 void BoardRepository::deleteColumn(int id) {
-    throw NotImplementedException();
+    string sqlDeleteColumnItems =
+        "DELETE FROM item "
+        "WHERE item.column_id = " +
+        to_string(id);
+
+    string sqlDeleteColumn =
+        "DELETE FROM column "
+        "WHERE column.id = " +
+        to_string(id);
+
+    int result = 0;
+    char *errorMessage = nullptr;
+
+    result = sqlite3_exec(database, sqlDeleteColumnItems.c_str(), NULL, 0, &errorMessage);
+    handleSQLError(result, errorMessage);
+
+    result = sqlite3_exec(database, sqlDeleteColumn.c_str(), NULL, 0, &errorMessage);
+    handleSQLError(result, errorMessage);
 }
 
 std::vector<Item> BoardRepository::getItems(int columnId) {
@@ -136,7 +153,17 @@ std::optional<Prog3::Core::Model::Item> BoardRepository::putItem(int columnId, i
 }
 
 void BoardRepository::deleteItem(int columnId, int itemId) {
-    throw NotImplementedException();
+    string sqlQueryItem =
+        "DELETE FROM item "
+        "WHERE item.column_id = " +
+        to_string(columnId) +
+        " AND item.id = " + to_string(itemId);
+
+    int result = 0;
+    char *errorMessage = nullptr;
+
+    result = sqlite3_exec(database, sqlQueryItem.c_str(), NULL, 0, &errorMessage);
+    handleSQLError(result, errorMessage);
 }
 
 void BoardRepository::handleSQLError(int statementResult, char *errorMessage) {
